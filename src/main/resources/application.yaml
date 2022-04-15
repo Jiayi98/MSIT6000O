@@ -1,0 +1,2 @@
+filePath: ./src/main/resources/static/ # file store location, should replace to S3 later
+spring.servlet.multipart.max-file-size: 10MB # the max. size of upload file
