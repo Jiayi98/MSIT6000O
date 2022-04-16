@@ -1,12 +1,13 @@
 package org.hkust.msit6000o.model;
 
 // file object, may not need
-public class CsvFile {
+public class outputFile {
     private final String fileName;
-    private String fileURL;
+    private final String fileURL;
 
-    public CsvFile(String fileName) {
+    public outputFile(String fileName, String URL) {
         this.fileName = fileName;
+        this.fileURL = URL;
     }
 
     public String getFileName() {
@@ -17,7 +18,4 @@ public class CsvFile {
         return fileURL;
     }
 
-    public void setFileURL(String fileURL) {
-        this.fileURL = fileURL;
-    }
 }

@@ -2,6 +2,7 @@ package org.hkust.msit6000o.dao;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.model.*;
+import org.hkust.msit6000o.model.outputFile;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -10,22 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.util.IOUtils;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 
 // S3 file upload implementations,
 // https://github.com/faizakram/spring-boot-with-aws-s3/blob/master/src/main/java/spring/boot/aws/service/FileUploadServiceImpl.java
 @Repository("S3")
-public class FileUploadDaoImp implements FileDao{
+public class FileUploadDaoImp implements FileDao {
 
     @Autowired
     private AmazonS3 s3Client;
@@ -39,7 +37,7 @@ public class FileUploadDaoImp implements FileDao{
      return: boolean value
      */
     @Override
-    public boolean fileUpload(String filePath) {
+    public String fileUpload(String filePath) {
         File targetFile = new File(filePath);
 
         DateTime jobTime = new DateTime(System.currentTimeMillis(),
@@ -52,29 +50,36 @@ public class FileUploadDaoImp implements FileDao{
             s3Client.putObject(new PutObjectRequest(bucketName, fileName, targetFile));
         } catch (SdkClientException e) {
             System.out.println("File Uploading exception");
-            return false;
+            return null;
         }
         // delete the intermediate file
         targetFile.delete();
-        return true;
+        return getFileUrl(fileName);
     }
-
-    public void getAllFilesInS3(String fileName) {
-        // list all files in s3
-
-        ObjectListing listing = s3Client.listObjects(bucketName);
-        List<S3ObjectSummary> summaries = listing.getObjectSummaries();
-
-        while (listing.isTruncated()) {
-            listing = s3Client.listNextBatchOfObjects (listing);
-            summaries.addAll(listing.getObjectSummaries());
-        }
-
-    }
-
 
     @Override
-    public String getFileUrl(String filename) {
-        return null;
+    public List<outputFile> getAllFile() {
+        if (!s3Client.doesBucketExistV2(bucketName)) {
+            System.out.println("No Bucket Found");
+            return null;
+        }
+        return s3Client.listObjectsV2(bucketName).getObjectSummaries().
+                stream()
+                .map(file -> {
+                    String myKey = file.getKey();
+                    String url = getFileUrl(myKey);
+                    return new outputFile(myKey, url);
+                })
+                .collect(Collectors.toList());
+
     }
+
+
+    //get file url
+    @Override
+    public String getFileUrl(String filename) {
+        return s3Client.getUrl(bucketName, filename).toString();
+    }
+
+
 }
