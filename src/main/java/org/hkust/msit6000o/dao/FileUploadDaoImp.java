@@ -14,8 +14,7 @@ import com.amazonaws.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class FileUploadDaoImp implements FileDao{
                 DateTimeZone.forTimeZone(TimeZone.getTimeZone("asia/shanghai")));
         DateTimeFormatter parser1 = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS");
 
-        String fileName = targetFile.getName() + "+" + parser1.print(jobTime);
+        String fileName = targetFile.getName() + "_" + parser1.print(jobTime);
 
         try {
             s3Client.putObject(new PutObjectRequest(bucketName, fileName, targetFile));

@@ -57,8 +57,6 @@
 <!--            <groupId>org.springframework.cloud</groupId>-->
 <!--            <artifactId>spring-cloud-starter-aws</artifactId>-->
 <!--        </dependency>-->
-
-
     </dependencies>
 
     <build>
