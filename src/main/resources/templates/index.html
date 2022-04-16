@@ -27,10 +27,12 @@
           font-size: 3.5rem;
         }
       }
+      /* Show it is fixed to the top */
+    .body {
+      min-height: 75rem;
+      padding-top: 4.5rem;
+    }
     </style>
-
-    <link href="navbar-top-fixed.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="${ctx}/components/fileinput/css/fileinput.css" />
 
 
 </head>
@@ -45,13 +47,13 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">File Upload<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">File Upload<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Analysis History</a>
+                <a class="nav-link" href="/history">Analysis History</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled">About</a>
+                <a class="nav-link " href="/about" > About</a>
             </li>
         </ul>
 
