@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadDaoImp implements FileDao{
 
     @Override
-    public boolean fileUpload(MultipartFile uploadFile) {
+    public boolean fileUpload(String uploadFile) {
         return false;
     }
 
