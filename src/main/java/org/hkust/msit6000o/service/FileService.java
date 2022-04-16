@@ -7,35 +7,25 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 // file upload and S3 connection service
 @Service
 public class FileService {
 
     private final FileDao fileDao;
+    private final SparkService sparkService;
     @Value("${filePath}")
     private String filePath;
 
     @Autowired
-    public FileService(@Qualifier("S3") FileDao fileUploadDao) { // dependency injection
+    public FileService(@Qualifier("S3") FileDao fileUploadDao, SparkService sparkService) { // dependency injection
         this.fileDao = fileUploadDao;
+        this.sparkService = sparkService;
     }
 
     //upload file to backend
     public void uploadFile(MultipartFile file, String fileName) throws Exception {
-        File targetFile = new File(filePath);
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
-        }
-        FileOutputStream out = new FileOutputStream(filePath + fileName);
-        out.write(file.getBytes());
-        out.flush();
-        out.close();
-
-        // Pending FileUploadImp implementation
-        // uploadFileToS3(file);
+        String temp_filename = sparkService.sparkProcessing(file, fileName);
+        uploadFileToS3(temp_filename);
     }
 
     //upload file to S3
@@ -47,5 +37,7 @@ public class FileService {
     public String getFileUrl(String filename){
         return fileDao.getFileUrl(filename);
     }
+
+
 
 }
