@@ -8,7 +8,7 @@ public interface FileDao {
     // some basic needs for implementing the file upload service
 
     // upload the file
-    boolean fileUpload(MultipartFile uploadFile);
+    boolean fileUpload(String uploadFile);
 
     // get S3 url by name
     String getFileUrl(String filename);

@@ -14,13 +14,13 @@ import java.io.FileOutputStream;
 @Service
 public class FileService {
 
-    private final FileDao fileUploadDao;
+    private final FileDao fileDao;
     @Value("${filePath}")
     private String filePath;
 
     @Autowired
     public FileService(@Qualifier("S3") FileDao fileUploadDao) { // dependency injection
-        this.fileUploadDao = fileUploadDao;
+        this.fileDao = fileUploadDao;
     }
 
     //upload file to backend
@@ -39,13 +39,13 @@ public class FileService {
     }
 
     //upload file to S3
-    public boolean uploadFileToS3(MultipartFile uploadFile){
-        return fileUploadDao.fileUpload(uploadFile);
+    public boolean uploadFileToS3(String filename){
+        return fileDao.fileUpload(filePath + filename);
     }
 
     //Get url from S3 by filename
     public String getFileUrl(String filename){
-        return fileUploadDao.getFileUrl(filename);
+        return fileDao.getFileUrl(filename);
     }
 
 }
