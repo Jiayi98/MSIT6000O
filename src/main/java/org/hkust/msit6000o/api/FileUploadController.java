@@ -51,7 +51,7 @@ public class FileUploadController {
         }
         System.out.println("FileUpload文件上传成功!");
 //        return "Successfully Uploaded!";
-        return resultURL;
+        return "Sucessfully uploaded! \n You can find the report here: <a href=" + resultURL + ">RESULT</a>";
     }
 
     @GetMapping("/all")

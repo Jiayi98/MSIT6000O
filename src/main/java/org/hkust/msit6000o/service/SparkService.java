@@ -7,6 +7,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,9 @@ import java.util.List;
 
 @Service
 public class SparkService {
+
+//    @Value("${filePath}")
+    static private String filePath = "./src/main/resources/static/";
 
     public String sparkProcessing(MultipartFile file, String fileName) throws Exception {
         // 1. 调用spark来process 文件
@@ -71,7 +75,7 @@ public class SparkService {
         //将结果写入txt文件
         // spark.........write(filePath)
         String input_path = file.getAbsolutePath();
-        String path = temp_filename;
+        String path = filePath + temp_filename;
         clearFile(path);
         SparkSession spark =SparkSession.builder()
                 .appName("SparkSQLTest1")
@@ -160,7 +164,7 @@ public class SparkService {
     }
 
     public static void main(String[] args) throws Exception {
-        String path = "E:\\研究生学习\\2021Fall\\Spring term\\cloud computing\\project\\StudentsPerformance.csv";
+        String path = "/Users/jiayizhou/Desktop/StudentsPerformance_2015_sp.csv";
         File file = new File(path);
         String temp_filename = "result.txt";
         process(file, temp_filename);

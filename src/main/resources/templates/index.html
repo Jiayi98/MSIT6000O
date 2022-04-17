@@ -65,7 +65,7 @@
         <h1>Navbar example</h1>
         <p class="lead">This tool allows teachers to upload a class grade file which is a CSV file and gives grade analysis according to the file. The output report would be permanently stored in our system and can be accessed anytime! </p>
 
-        <form enctype="multipart/form-data" method="post" action="/uploading" target="frame1">
+        <form enctype="multipart/form-data" method="post" action="/uploading" target="frame2">
             <input type="file" name="file"/>
             <button type="submit" class="btn btn-info">Upload&raquo;</button>
             <iframe frameborder="0"  name="frame1" id="frame1" width="600px" height="30px" ></iframe>
@@ -75,7 +75,7 @@
 
 
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+            <iframe name="frame2"  class="embed-responsive-item" src="" allowfullscreen></iframe>
         </div>
 
         <th:block th:replace="_modals :: modal('exampleModal2')">modal</th:block>

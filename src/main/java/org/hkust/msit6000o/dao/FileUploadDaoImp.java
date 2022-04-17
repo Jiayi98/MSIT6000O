@@ -42,7 +42,7 @@ public class FileUploadDaoImp implements FileDao {
 
         DateTime jobTime = new DateTime(System.currentTimeMillis(),
                 DateTimeZone.forTimeZone(TimeZone.getTimeZone("asia/shanghai")));
-        DateTimeFormatter parser1 = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss,SSS");
+        DateTimeFormatter parser1 = DateTimeFormat.forPattern("MM/dd/yyyy");
 
         String fileName = targetFile.getName() + "_" + parser1.print(jobTime);
 
