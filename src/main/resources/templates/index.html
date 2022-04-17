@@ -62,12 +62,12 @@
 
 <main role="main" class="container">
     <div class="jumbotron">
-        <h1>Navbar example</h1>
+        <h1>Auto-Grade</h1>
         <p class="lead">This tool allows teachers to upload a class grade file which is a CSV file and gives grade analysis according to the file. The output report would be permanently stored in our system and can be accessed anytime! </p>
 
-        <form enctype="multipart/form-data" method="post" action="/uploading" target="frame2">
+        <form enctype="multipart/form-data" method="post" action="/uploading" onsubmit="myButton.disabled = true; return true;" target="frame2">
             <input type="file" name="file"/>
-            <button type="submit" class="btn btn-info">Upload&raquo;</button>
+            <button type="submit" name="myButton" class="btn btn-primary btn-check" data-loading-text="uploaded & analyzing...">Upload&raquo;</button>
             <iframe frameborder="0"  name="frame1" id="frame1" width="600px" height="30px" ></iframe>
 
         </form>
@@ -105,6 +105,10 @@
             $('#exampleModal2').find('.modal-body').html(data);
         })
     })
+
+
+
+
 
 </script>
 
