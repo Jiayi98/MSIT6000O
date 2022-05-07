@@ -19,7 +19,7 @@ import java.util.List;
 public class SparkService {
 
 //    @Value("${filePath}")
-    static private String filePath = "./src/main/resources/static/";
+    static private String filePath = "./";
 
     public String sparkProcessing(MultipartFile file, String fileName) throws Exception {
         // 1. 调用spark来process 文件
@@ -78,6 +78,7 @@ public class SparkService {
         String path = filePath + temp_filename;
         clearFile(path);
         SparkSession spark =SparkSession.builder()
+                .master("local")
                 .appName("SparkSQLTest1")
                 .config("spark.some.config.option", "some-value")
                 .getOrCreate();

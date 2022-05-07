@@ -1,0 +1,35 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: application-artifacts
+spec:
+  selector:
+    app: application
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: application-artifacts
+  labels:
+    app: application
+spec:
+  restartPolicy: Always
+  replicas: 1
+  selector:
+    matchLabels:
+      app: application
+  template:
+    metadata:
+      labels:
+        app: application
+    spec:
+      containers:
+        - name: application1
+          image: jiayi98/msit-app:v1
+          ports:
+            - containerPort: 8080

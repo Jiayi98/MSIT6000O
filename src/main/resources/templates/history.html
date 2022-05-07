@@ -39,7 +39,7 @@
     <link type="text/css" rel="stylesheet" href="${ctx}/components/fileinput/css/fileinput.css"/>
     <script>
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", "http://localhost:8080/all", false ); // false for synchronous request
+            xmlHttp.open( "GET", "http://3.87.245.100:20488/all", false ); // false for synchronous request
             xmlHttp.send( null );
             window.localStorage.setItem("grade_report", xmlHttp.responseText);
             console.log("fetching data");

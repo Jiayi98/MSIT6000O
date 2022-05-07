@@ -1,12 +1,12 @@
-filePath: ./src/main/resources/static/ # file store location, should replace to S3 later
+filePath: ./ # file store location, should replace to S3 later
 
 spring.servlet.multipart.max-file-size: 10MB # the max. size of upload file
 
 cloud:
   aws:
     credentials:
-      access-key: AKIAZBKIH7FEYWNKYX3C
-      secret-key: CdI4kc6Xr/bjDFICq4gULaQEGlHyzF2bD7SxVdhx
+      access-key: AKIA3YT2OFBLHYYLSZRQ
+      secret-key: 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
     region:
       static: us-east-1
     stack:
@@ -14,5 +14,5 @@ cloud:
 
 application:
   bucket:
-    name: 6000obucket
+    name: 6000obucket3
 
